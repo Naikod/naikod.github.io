@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chiperline - naikod</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .result-box {
+        position: relative;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="title-bar text-center pt-5 font-bold">
+      <h3>Chiperline - Demo</h3>
+    </div>
+    <div class="container mt-5" style="width: 36rem">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#encrypt-tab"
+            >Encrypt</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#decrypt-tab">Decrypt</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#uuid-tab"
+            >UUID Generator</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#name-tab"
+            >Name Generator</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#string-tab"
+            >Random String Generator</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#number-tab"
+            >Random Number Generator</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#compare">Compare</a>
+        </li>
+      </ul>
+
+      <div class="tab-content mt-3">
+        <div id="encrypt-tab" class="tab-pane fade show active">
+          <div class="card p-3">
+            <div class="form-group">
+              <label for="encrypt-input">Text to Encrypt:</label>
+              <input type="text" class="form-control" id="encrypt-input" />
+            </div>
+            <div class="form-group">
+              <label for="key-input">Encryption Key:</label>
+              <input type="text" class="form-control" id="key-input" />
+            </div>
+            <div class="form-check pb-3">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="true"
+                id="wm-enc-input"
+              />
+              <label class="form-check-label" for="defaultCheck1">
+                Use Watermark
+              </label>
+            </div>
+            <button class="btn btn-primary mb-3" onclick="encryptText()">
+              Encrypt
+            </button>
+            <div class="result-title">Result:</div>
+            <div class="result-box border p-3">
+              <div class="result-text" id="encrypt-result"></div>
+            </div>
+            <div class="error mt-3" id="encrypt-error"></div>
+            <button
+              class="btn btn-success copy-btn"
+              onclick="copyText('encrypt-result')"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div id="compare" class="tab-pane fade show active">
+          <div class="card p-3">
+            <div class="form-group">
+              <label for="encrypt-input">String:</label>
+              <input type="text" class="form-control" id="compare-1-input" />
+            </div>
+            <div class="form-group">
+              <label for="key-input">Encrypted String:</label>
+              <input type="text" class="form-control" id="compare-2-input" />
+            </div>
+            <div class="form-group">
+              <label for="key-input">Encrypted Key:</label>
+              <input type="text" class="form-control" id="compare-key-input" />
+            </div>
+            <div class="form-check pb-3">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="true"
+                id="compare-wm-input"
+              />
+              <label class="form-check-label" for="defaultCheck1">
+                Use Watermark
+              </label>
+            </div>
+            <button class="btn btn-primary mb-3" onclick="compare()">
+              Compare
+            </button>
+            <div class="result-title">Result:</div>
+            <div class="result-box border p-3">
+              <div class="result-text" id="compare-result"></div>
+            </div>
+            <div class="error mt-3" id="compare-error"></div>
+          </div>
+        </div>
+
+        <div id="decrypt-tab" class="tab-pane fade">
+          <div class="card p-3">
+            <div class="form-group">
+              <label for="decrypt-input">Text to Decrypt:</label>
+              <input type="text" class="form-control" id="decrypt-input" />
+            </div>
+            <div class="form-group">
+              <label for="key-input">Decryption Key:</label>
+              <input type="text" class="form-control" id="decrypt-key-input" />
+            </div>
+
+            <div class="form-check pb-3">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="true"
+                id="wm-dec-input"
+              />
+              <label class="form-check-label" for="defaultCheck1">
+                Use Watermark
+              </label>
+            </div>
+            <button class="btn btn-primary mb-3" onclick="decryptText()">
+              Decrypt
+            </button>
+            <div class="result-title">Result:</div>
+            <div class="result-box border p-3">
+              <div class="result-text" id="decrypt-result"></div>
+            </div>
+            <div class="error mt-3" id="decrypt-error"></div>
+            <button
+              class="btn btn-success copy-btn"
+              onclick="copyText('decrypt-result')"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div id="uuid-tab" class="tab-pane fade">
+          <div class="card p-3">
+            <button class="btn btn-primary mb-3" onclick="generateUUID()">
+              Generate
+            </button>
+            <div class="result-box border p-3">
+              <div class="result-text" id="uuid-result"></div>
+            </div>
+            <div class="error mt-3" id="uuid-error"></div>
+            <button
+              class="btn btn-success copy-btn"
+              onclick="copyText('uuid-result')"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div id="name-tab" class="tab-pane fade">
+          <div class="card p-3">
+            <div class="form-group">
+              <label for="name-input">Word Length:</label>
+              <input type="text" class="form-control" id="name-input" />
+            </div>
+            <button class="btn btn-primary mb-3" onclick="generateName()">
+              Generate
+            </button>
+            <div class="result-title">Result:</div>
+            <div class="result-box border p-3">
+              <div class="result-text" id="name-result"></div>
+            </div>
+            <div class="error mt-3" id="decrypt-error"></div>
+            <button
+              class="btn btn-success copy-btn"
+              onclick="copyText('name-result')"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div id="string-tab" class="tab-pane fade">
+          <div class="card p-3">
+            <div class="form-group">
+              <label for="string-input">Length:</label>
+              <input type="text" class="form-control" id="string-input" />
+            </div>
+            <button class="btn btn-primary mb-3" onclick="generatestring()">
+              Generate
+            </button>
+            <div class="result-title">Result:</div>
+            <div class="result-box border p-3">
+              <div class="result-text" id="string-result"></div>
+            </div>
+            <div class="error mt-3" id="decrypt-error"></div>
+            <button
+              class="btn btn-success copy-btn"
+              onclick="copyText('string-result')"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div id="number-tab" class="tab-pane fade">
+          <div class="card p-3">
+            <div class="form-group">
+              <div class="row">
+                <div class="col">
+                  <label for="string-input">Min:</label>
+                  <input
+                    type="number"
+                    name="min-number"
+                    id="min-input"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col">
+                  <label for="string-input">Max:</label>
+                  <input
+                    type="number"
+                    name="max-number"
+                    id="max-input"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary mb-3" onclick="generateNumb()">
+              Generate
+            </button>
+            <div class="result-title">Result:</div>
+            <div class="result-box border p-3">
+              <div class="result-text" id="numb-result"></div>
+            </div>
+            <div class="error mt-3" id="decrypt-error"></div>
+            <button
+              class="btn btn-success copy-btn"
+              onclick="copyText('numb-result')"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+      </div>
+      <a href="https://github.com/naikod/chiperline" style="text-align: center"
+        >Chiperline - @naikod</a
+      >
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/gh/Naikod/chiperline@main/main.js"></script> -->
+    <script src="../package/main.js"></script>
+    <script>
+      function encryptText() {
+        var input = document.getElementById("encrypt-input").value;
+        var key = document.getElementById("key-input").value;
+
+        try {
+          const isUseWM = document.getElementById("wm-enc-input").checked;
+          var chiperline = new Chiperline(key, isUseWM);
+          var encryptedText = chiperline.encrypt(input);
+          document.getElementById("encrypt-result").innerText = encryptedText;
+          document.getElementById("encrypt-error").innerText = "";
+        } catch (error) {
+          document.getElementById("encrypt-error").innerText =
+            "Error: " + error.message;
+        }
+      }
+
+      function compare() {
+        const stringOriginal = document.getElementById("compare-1-input").value;
+        const stringEncrypt = document.getElementById("compare-2-input").value;
+        const keyInput = document.getElementById("compare-key-input").value;
+        const wmInput = document.getElementById("compare-wm-input").value;
+        try {
+          const chiperline = new Chiperline(keyInput, wmInput);
+          console.log(chiperline.compare(stringOriginal, stringEncrypt));
+          document.getElementById("compare-result").innerText =
+            chiperline.compare(stringOriginal, stringEncrypt);
+        } catch (error) {
+          document.getElementById("compare-error").innerText = error;
+        }
+      }
+
+      function decryptText() {
+        var input = document.getElementById("decrypt-input").value;
+        var key = document.getElementById("decrypt-key-input").value;
+
+        try {
+          const isUseWM = document.getElementById("wm-dec-input").checked;
+          var chiperline = new Chiperline(key, isUseWM);
+          var decryptedText = chiperline.decrypt(input);
+          document.getElementById("decrypt-result").innerText = decryptedText;
+          document.getElementById("decrypt-error").innerText = "";
+        } catch (error) {
+          document.getElementById("decrypt-error").innerText =
+            "Error: " + error.message;
+        }
+      }
+
+      function generateUUID() {
+        const chiperline = new Chiperline("123");
+        document.getElementById("uuid-result").innerHTML =
+          chiperline.generateUUID();
+      }
+
+      function generateName() {
+        const chiperline = new Chiperline("123");
+        document.getElementById("name-result").innerHTML =
+          chiperline.randomName(document.getElementById("name-input").value);
+      }
+
+      function generatestring() {
+        const chiperline = new Chiperline("123");
+        document.getElementById("string-result").innerHTML =
+          chiperline.randomString(
+            document.getElementById("string-input").value
+          );
+      }
+
+      function generateNumb() {
+        const chiperline = new Chiperline("123");
+        const min = Number(document.getElementById("min-input").value);
+        const max = Number(document.getElementById("max-input").value);
+        console.log(chiperline.randomInt(min, max));
+        document.getElementById("numb-result").innerHTML = chiperline.randomInt(
+          min,
+          max
+        );
+      }
+
+      function copyText(elementId) {
+        var textElement = document.getElementById(elementId);
+        var text = textElement.innerText;
+        navigator.clipboard
+          .writeText(text)
+          .then(function () {})
+          .catch(function (error) {
+            console.error("Unable to copy text: ", error);
+          });
+      }
+
+      function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+
+      document.getElementsByClassName("tablinks")[0].click();
+    </script>
+  </body>
+</html>
